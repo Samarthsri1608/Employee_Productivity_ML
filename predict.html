@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Make a Prediction</title>
+</head>
+<body>
+    <h1>Enter Details to Predict Productivity</h1>
+    <form action="{{ url_for('submit')}}" method="post">
+        <label>Day</label><input type="text" name="day" required><br>
+        <label>Team</label><input type="text" name="team" required><br>
+        <label>Targeted Productivity</label><input type="text" name="targeted_productivity" required><br>
+        <label>SMV</label><input type="text" name="smv" required><br>
+        <label>Over Time</label><input type="text" name="over_time" required><br>
+        <label>Incentive</label><input type="text" name="incentive" required><br>
+        <label>No. of Workers</label><input type="text" name="no_of_workers" required><br>
+        <label>Workday</label><input type="text" name="workday" required>
+
+        <input type="submit" value="Predict">
+    </form>
+    <a href="{{ url_for('home') }}">Back to Home</a>
+</body
+</html>
