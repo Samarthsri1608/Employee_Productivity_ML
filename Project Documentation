@@ -1,0 +1,114 @@
+Project Title:
+Machine Learning Approach for Employee Performance Prediction
+
+Objective:
+To develop a machine learning model that predicts the actual productivity of garment industry workers based on various operational features, and build a user-friendly web interface for live predictions.
+
+Dataset Used:
+File: garments_worker_productivity.csv
+
+Size: ~1200 rows, 15 columns
+
+Source: Provided as part of the internship assignment
+
+Features in the Dataset:
+date – production date
+
+day – day of the week
+
+quarter – fiscal quarter
+
+department – SWD / Finishing
+
+team – team number
+
+targeted_productivity – planned productivity target (0–1)
+
+smv – standard minute value
+
+over_time – overtime in minutes
+
+incentive – monetary incentive
+
+no_of_workers – count of workers
+
+actual_productivity – true productivity achieved
+
+Other derived/calculated fields
+
+Project Flow:
+🔹 1. Data Preprocessing:
+Removed unused columns (date, quarter, department)
+
+Encoded categorical values (day, team) using label encoding
+
+Handled missing/null values
+
+Created a new feature: smv_worker = smv * no_of_workers
+
+🔹 2. Model Building:
+Features used:
+
+['day', 'team', 'targeted_productivity', 'smv', 'over_time',
+ 'incentive', 'no_of_workers', 'workday', 'smv_worker']
+Split into Train-Test (80:20)
+
+Models used:
+
+Linear Regression
+
+Random Forest Regressor ✅ (Best R²: ~0.55)
+
+XGBoost Regressor
+
+🔹 3. Model Evaluation:
+Metrics: Mean Absolute Error (MAE), Mean Squared Error (MSE), R² Score
+
+Random Forest showed best balance between accuracy and stability.
+
+🔹 4. Model Deployment:
+Trained model saved using pickle
+
+Flask used to create web interface
+
+Pages created: home.html, about.html, predict.html, submit.html
+
+A /test_cases page added to showcase model predictions on predefined inputs
+
+Web Application Functionality:
+- Inputs collected from user:
+day, team, targeted_productivity, smv, over_time,
+incentive, no_of_workers, workday
+
+- Processing:
+Calculates smv_worker on backend
+
+Sends data to model for prediction
+
+Displays predicted productivity on submit.html
+
+Example Test Predictions:
+day	team	targeted_prod	smv	overtime	incentive	workers	workday	smv_worker	Prediction
+1,   3,   0.50,   35.0,   5.0,   300,   55,   1,  1925.0,   0.554
+3,   4,   1.00,   20.0,   2.0,   050,   35,   1,   700.0,   0.772
+6,   2,   0.95,   10.0,   0.0,   000,   10,   0,   100.0,   0.745
+
+Model outputs values generally between 0.4 and 0.9 depending on input effort and working conditions.
+
+Limitations:
+Small dataset (~1000 samples), prone to overfitting
+
+Some important variables like worker skill, weather, motivation, machine conditions were missing
+
+Model does not generalize well to edge cases with extreme values
+
+Future Improvements:
+Add more training data from diverse time periods and locations
+
+Explore feature engineering: log-scaling, interaction terms
+
+Try time-based models like LSTM (if predicting over time)
+
+Improve frontend for better UX (dropdowns, data validation)
+
+GitHub Repository:
